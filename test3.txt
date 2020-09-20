@@ -1,0 +1,5 @@
+result add cost
+result add 200
+cost add 10
+print result
+QUIT
