@@ -9,7 +9,6 @@ class Register():
         children = parent.get_all_children()
 
         if self in children:
-            # print("error, cyclic dependency")
             return False
 
         return True
@@ -50,7 +49,7 @@ class Register():
     def eval(self):
         sum = 0
         for operation in self.children:
-            # looks up the operation and calls the appropriate function
+            # looks up the symbol and calls the appropriate function
             sum = Calculator.symbols[operation.op](sum, operation.eval())
 
         return sum
