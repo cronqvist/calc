@@ -6,6 +6,4 @@ salaries add 20
 salaries multiply 5
 costs add 10
 print result
-result asd revenue
-qvit
 QUIT

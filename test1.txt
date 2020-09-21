@@ -6,11 +6,4 @@ B subtract 2
 print B
 A add 1
 print A
-1 add 2
-A add 1
-print A
-A division 2
-print A
-A add B
-B add A
 quit
