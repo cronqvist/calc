@@ -73,8 +73,11 @@ class Operation():
 
 class Calculator():
 
-    self.registers = {} 
-    self.symbols = {} 
+
+    def __init__(self):
+        self.registers = {} 
+        self.symbols = {} 
+
 
 
     def valid_operation(self, name):
