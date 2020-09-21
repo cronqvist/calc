@@ -1,7 +1,6 @@
 import sys
 
 class Register():
-
     def __init__(self):
         self.children = list()
 
@@ -15,9 +14,12 @@ class Register():
 
         return True
 
-
     def valid_add(self, operation):
         if isinstance(operation.val, Register):
+
+            # cant add itself
+            if operation.val == self:
+                return False
 
             # checks whether both child and parent register contains eachother, this can be
             # be done in a single bfs/dfs check. For every visited vertex 'v', if there is a child 'u' that is already visited
@@ -45,7 +47,6 @@ class Register():
 
         return children
 
-
     def eval(self):
         sum = 0
         for operation in self.children:
@@ -53,7 +54,6 @@ class Register():
             sum = Calculator.symbols[operation.op](sum, operation.eval())
 
         return sum
-
 
 class Operation():
     op = None
@@ -73,15 +73,15 @@ class Operation():
 class Calculator():
     symbols = {}
 
-    def add_operation(self, op, func):
+    def add_symbol(self, op, func):
         self.symbols[op] = func
 
     def __init__(self):
         self.registers = {} 
-        self.add_operation('add', lambda lhs, rhs: lhs + rhs)
-        self.add_operation('subtract', lambda lhs, rhs: lhs - rhs)
-        self.add_operation('multiply', lambda lhs, rhs: lhs * rhs)
-        self.add_operation('division', lambda lhs, rhs: lhs / rhs)
+        self.add_symbol('add', lambda lhs, rhs: lhs + rhs)
+        self.add_symbol('subtract', lambda lhs, rhs: lhs - rhs)
+        self.add_symbol('multiply', lambda lhs, rhs: lhs * rhs)
+        self.add_symbol('division', lambda lhs, rhs: lhs / rhs)
 
 
     @staticmethod
@@ -97,7 +97,6 @@ class Calculator():
         
     def add_register(self, name):
         if self.valid_register_name(name):
-            # print("adding register " + name)
             self.registers[name] = Register()
 
     def valid_command(self, line):
@@ -116,6 +115,9 @@ class Calculator():
             dest = command[0]   
             src = command[2]
             op = command[1]
+
+            if dest == src:
+                return False # should not be able to add itself
 
             if self.valid_register_name(dest) and self.valid_register_name(src) and self.valid_operation(op):
                 if self.register_exists(dest) and self.register_exists(src):
@@ -168,7 +170,7 @@ class Calculator():
     def handle_input(self, istream):
         output = list()
 
-        # reset old registers
+        # reset old registers incase used before
         self.registers = {}
 
         # The program should either take its input from the standard input stream, or from a file. When
@@ -180,7 +182,6 @@ class Calculator():
         # and process it.
 
         for line in istream:
-            # val = run_command(line)
             val = self.run_command(line)
             if val:
                 if val == "quit":

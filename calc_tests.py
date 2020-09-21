@@ -23,14 +23,12 @@ class TestCalc(unittest.TestCase):
         # operation tests
         self.calc.add_register("b")
         self.assertTrue(self.calc.valid_command("a add b"))
-        self.assertTrue(self.calc.valid_command("a add c"))
         self.assertTrue(self.calc.valid_command("d add c"))
-        self.assertTrue(self.calc.valid_command("d add 1"))
         self.assertFalse(self.calc.valid_command("d asd 1"))
         self.assertTrue(self.calc.valid_command("d multiply 1"))
         self.assertTrue(self.calc.valid_command("d subtract 1"))
 
-    def test_case_1(self):
+    def test_case_pdf(self):
         # from the pdf
         s1 = StringIO("A add 2\nA add 3\nprint A\nB add 5\nB subtract 2\nprint B\nA add 1\nprint A\nquit")
         actual = self.calc.handle_input(s1)
@@ -52,7 +50,13 @@ class TestCalc(unittest.TestCase):
         # I assume the calculator should work in this way atleast.
 
         actual = self.calc.handle_input(input)
-        expected = ["r3 add r1", "r3 add r1"] # two last adds should fail 
+        expected = ["r3 add r1", "r3 add r1"] # two last commands should fail and thus be printed
+        self.assertListEqual(actual, expected)
+
+    def test_add_itself(self):
+        input = StringIO("r add r")
+        actual = self.calc.handle_input(input)
+        expected = ["r add r"]
         self.assertListEqual(actual, expected)
 
 unittest.main()
