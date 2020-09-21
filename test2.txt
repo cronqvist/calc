@@ -1,1 +1,9 @@
-result add revenue\nresult subtract costs\nrevenue add 200\ncosts add salaries\nsalaries add 20\nsalaries multiply 5\ncosts add 10\nprint result\nQUIT\n
+result add revenue
+result subtract costs
+revenue add 200
+costs add salaries
+salaries add 20
+salaries multiply 5
+costs add 10
+print result
+QUIT

@@ -48,7 +48,8 @@ class TestCalc(unittest.TestCase):
         # r1 -> r2 -> r3
         # should not be possible to add r3 to r1
         # should not be possible to add r1 to r3
-        # this is because they are already dependent of eachother in some way
+        # this is because they are already dependent of eachother in some way.
+        # I assume the calculator should work in this way atleast.
 
         actual = self.calc.handle_input(input)
         expected = ["r3 add r1", "r3 add r1"] # two last adds should fail 
