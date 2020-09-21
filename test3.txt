@@ -1,5 +1,1 @@
-result add cost
-result add 200
-cost add 10
-print result
-QUIT
+r1 add r2\nr2 add r3\nr3 add r1
